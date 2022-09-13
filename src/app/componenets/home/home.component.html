@@ -1,0 +1,12 @@
+<!--property binding-->
+<img *ngIf="imageShown" [src]="storeInfo.imgUrl" alt="" class="image-fluid m-1">
+<button  type="button" class="btn btn-primary" (click)="toggleImage()">Toggle image</button>
+<!--interpolation-->
+<!--<img src="{{storeInfo.imgUrl}}" alt="">-->
+<h1>{{storeInfo.name}}</h1>
+<!--structural directives-->
+<ul>
+    <li *ngFor="let item of storeInfo.branches">
+        {{item}}
+    </li>
+</ul>
