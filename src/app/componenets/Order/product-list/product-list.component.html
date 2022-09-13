@@ -10,6 +10,8 @@
     [to be removed] for test:
     {{selectedCatId}}
     <button class="btn btn-primary" (click)="changeCat()">Change Category</button>
+    <br>
+    Todays Date: {{orderDate | date: 'longDate'}}
 </div>
 <hr>
 <table class="table table-sm">
@@ -19,7 +21,8 @@
             <th scope="col">Name</th>
             <th scope="col">Image</th>
             <th scope="col">av. Quantity</th>
-            <th scope="col">Price</th>
+            <th scope="col">Price in USD</th>
+            <th scope="col">Price in EGP</th>
             <th scope="col">Needed</th>
             <th scope="col">Buy</th>
         </tr>
@@ -54,24 +57,29 @@
         <!--<tr *ngFor="let item of prdList; let i=index;" [ngClass]="{'bg-warning':item.quantity==0,'text-primary':item.quantity==0}">-->
             
         <!--<tr *ngFor="let item of prdList; let i=index;" [ngStyle]="{'background-color':item.quantity==0?'lightyellow':'lightgray', 'color':item.quantity==0?'darkred':'darkblue'}">-->
-        <tr *ngIFor="let item of prdList; let i=index">
+        <tr *ngFor="let item of prdList; let i=index">
             <!--safe navigation operator-->
             <td>{{i+1}}</td>
             <td>{{item?.name}}</td>
-            <td><img [src]="item?.imgUrl" alt="image"></td>
+            <td>
+                <!--<img LightBox="red" [src]="item?.imgUrl" alt="image">-->
+                <!--<img [LightBox]="Read_From_ts" [src]="item?.imgUrl" alt="image">-->
+                <img LightBox="red" defaultColor="yellow" [src]="item?.imgUrl" alt="image">
+            </td>
             <td>
                 <!--<div *ngIf="item.quantity!=0">{{item?.quantity}}</div>
                 <div *ngIf="item.quantity==0">Out Of Stock</div>-->
                 <!--<div *ngIf="item.quantity!=0 else outOfStock">{{item?.quantity}}</div>
                 <ng-template  #outOfStock>Out Of Stock</ng-template>-->
-                <ng-container> [ngSwitch]="item.quantity">
+                <ng-container [ngSwitch]="item.quantity">
                     <div *ngSwitchCase="0">Out Of Stock</div>
                     <div *ngSwitchCase="1">Last item</div>
                     <div *ngSwitchCase="2">Last 2 items</div>
                     <div *ngSwitchDefault>{{item.quantity}}</div>
                 </ng-container>
             </td>
-            <td>{{item?.price}}</td>
+            <td>{{item?.price | currency: 'USD' : 'symbol'}}</td>
+            <td>{{item.price | USDtoEGP: 10 | currency : 'EGP' : 'code'}}</td>
             <!--template variable-->
             <td><input #itemsCount type="number" class="form-control"></td>
             <td><button class="btn btn-secondary" (click)="buy(item.price,itemsCount.value)">Buy</button></td>

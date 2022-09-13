@@ -13,14 +13,21 @@ export class ProductListComponent implements OnInit {
   catList:ICategory[];
   orderTotalPrice:number=0;
   prdList:Iproduct[];
-  constructor() {
+
+  orderDate:Date;
+
+  // use constructor for variable initailization and dependency injection
+  // any thing else we need to be done when component is initailized 
+  // prefered to be in the ngOnInit
+
+  constructor() { 
     this.prdList=[
-      {id:100, name:"lenove thinkpad laptop", price:100, quantity:1, imgUrl:"https://fakeimg.pl/200x100/", categoryId:1},
-      {id:200, name:"apple macbook laptop", price:200, quantity:0, imgUrl:"https://fakeimg.pl/200x100/", categoryId:1},
-      {id:300, name:"lenove tap2", price:120, quantity:10, imgUrl:"https://fakeimg.pl/200x100/", categoryId:2},
-      {id:400, name:"samsung tap2", price:120, quantity:10, imgUrl:"https://fakeimg.pl/200x100/", categoryId:2},
-      {id:500, name:"lenove 3 laptop", price:140, quantity:2, imgUrl:"https://fakeimg.pl/200x100/", categoryId:1},      
-      {id:600, name:"samsung note 10", price:200, quantity:0, imgUrl:"https://fakeimg.pl/200x100/", categoryId:3},
+      {id:100, name:"lenove thinkpad laptop", price:1000000, quantity:1, imgUrl:"https://fakeimg.pl/200x100/", categoryId:1},
+      {id:200, name:"apple macbook laptop", price:2078940, quantity:0, imgUrl:"https://fakeimg.pl/200x100/", categoryId:1},
+      {id:300, name:"lenove tap2", price:1203.5, quantity:10, imgUrl:"https://fakeimg.pl/200x100/", categoryId:2},
+      {id:400, name:"samsung tap2", price:12023, quantity:10, imgUrl:"https://fakeimg.pl/200x100/", categoryId:2},
+      {id:500, name:"lenove 3 laptop", price:14320, quantity:2, imgUrl:"https://fakeimg.pl/200x100/", categoryId:1},      
+      {id:600, name:"samsung note 10", price:2002, quantity:0, imgUrl:"https://fakeimg.pl/200x100/", categoryId:3},
       {id:700, name:"lenove mobile", price:120, quantity:9, imgUrl:"https://fakeimg.pl/200x100/", categoryId:3},
     ];
     this.catList=[
@@ -28,6 +35,7 @@ export class ProductListComponent implements OnInit {
       {id:2, name:"taplet"},
       {id:3, name:"mobile"}
     ];
+    this.orderDate=new Date();
    }
 
   ngOnInit(): void {
