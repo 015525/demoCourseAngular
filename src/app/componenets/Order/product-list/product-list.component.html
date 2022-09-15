@@ -1,18 +1,19 @@
-<div class="mb-3">
-    <label for="prdCat" class="form-label">Category</label>
-    <!--<select #catId class="form-control" name="cat" id="prdCat" onchange="getCatId(catId.value)">-->
-    <!--<select class="form-control" name="cat" id="prdCat" onchange="getCatId($event)"> //in ts://event.taget.value -->
-    <select class="form-control" name="cat" id="prdCat" [(ngModel)]="selectedCatId">
+<!--<div class="mb-3">
+    <label for="prdCat" class="form-label">Category</label>-->
+<!--<select #catId class="form-control" name="cat" id="prdCat" onchange="getCatId(catId.value)">-->
+<!--<select class="form-control" name="cat" id="prdCat" onchange="getCatId($event)"> //in ts://event.taget.value -->
+<!--<select class="form-control" name="cat" id="prdCat" [(ngModel)]="selectedCatId" (change)="filterPrdList()">
         <option *ngFor="let item of catList" [value]="item.id">{{item.name}}</option>
     </select>
-</div>
+</div>-->
+<!--
 <div class="text-secondary">
     [to be removed] for test:
     {{selectedCatId}}
     <button class="btn btn-primary" (click)="changeCat()">Change Category</button>
     <br>
     Todays Date: {{orderDate | date: 'longDate'}}
-</div>
+</div>-->
 <hr>
 <table class="table table-sm">
     <thead>
@@ -55,9 +56,9 @@
         <!--<ng-container *ngFor="let item of prdList; let i=index;">
      <tr *ngIf="item.quantity!=0">-->
         <!--<tr *ngFor="let item of prdList; let i=index;" [ngClass]="{'bg-warning':item.quantity==0,'text-primary':item.quantity==0}">-->
-            
+
         <!--<tr *ngFor="let item of prdList; let i=index;" [ngStyle]="{'background-color':item.quantity==0?'lightyellow':'lightgray', 'color':item.quantity==0?'darkred':'darkblue'}">-->
-        <tr *ngFor="let item of prdList; let i=index">
+        <tr *ngFor="let item of prdListOfCat; let i=index">
             <!--safe navigation operator-->
             <td>{{i+1}}</td>
             <td>{{item?.name}}</td>
@@ -87,7 +88,9 @@
         <!--</ng-container>   -->
     </tbody>
 </table>
-<hr>
 <h3>
+    <div class="text-danger">
+        [To Be Removed] for test:<br>
+    </div>
     Total price is : {{orderTotalPrice}}
 </h3>

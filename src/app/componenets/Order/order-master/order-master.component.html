@@ -1,0 +1,16 @@
+<h2>Make your order</h2>
+<div class="mb-3">
+    <label for="prdCat" class="form-label">Category</label>
+    <!--<select #catId class="form-control" name="cat" id="prdCat" onchange="getCatId(catId.value)">-->
+    <!--<select class="form-control" name="cat" id="prdCat" onchange="getCatId($event)"> //in ts://event.taget.value -->
+    <select class="form-control" name="cat" id="prdCat" [(ngModel)]="selectedCatId">
+        <option value="0">All</option>
+        <option *ngFor="let item of catList" [value]="item.id">{{item.name}}</option>
+    </select>
+</div>
+<hr>
+<div class="bg-warning">
+    <app-product-list [sentCatId]="selectedCatId"></app-product-list>
+</div>
+<hr>
+<h3>Total Price is : {{orderTotalPrice}}</h3>

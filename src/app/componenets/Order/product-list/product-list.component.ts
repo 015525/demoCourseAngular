@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ICategory } from 'src/app/Models/icategory';
 import { Iproduct } from 'src/app/Models/iproduct';
 
@@ -7,13 +7,12 @@ import { Iproduct } from 'src/app/Models/iproduct';
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.scss']
 })
-export class ProductListComponent implements OnInit {
+export class ProductListComponent implements OnChanges {
 
-  selectedCatId:number=0;
-  catList:ICategory[];
+  @Input() sentCatId:number=0;
   orderTotalPrice:number=0;
   prdList:Iproduct[];
-
+  prdListOfCat:Iproduct[] = [];
   orderDate:Date;
 
   // use constructor for variable initailization and dependency injection
@@ -30,13 +29,15 @@ export class ProductListComponent implements OnInit {
       {id:600, name:"samsung note 10", price:2002, quantity:0, imgUrl:"https://fakeimg.pl/200x100/", categoryId:3},
       {id:700, name:"lenove mobile", price:120, quantity:9, imgUrl:"https://fakeimg.pl/200x100/", categoryId:3},
     ];
-    this.catList=[
-      {id:1, name:"Laptop"},
-      {id:2, name:"taplet"},
-      {id:3, name:"mobile"}
-    ];
+    
+    
+    this.prdListOfCat=this.prdList;
+
     this.orderDate=new Date();
    }
+  ngOnChanges(): void {
+    this.filterPrdList()
+  }
 
   ngOnInit(): void {
   }
@@ -47,7 +48,7 @@ export class ProductListComponent implements OnInit {
   }
 
   changeCat(){
-    this.selectedCatId=1;
+    this.sentCatId=1;
   }
 
   buy(price:number, Count:string){
@@ -66,6 +67,13 @@ export class ProductListComponent implements OnInit {
       }
     }
     */
+  }
+
+  private filterPrdList(){
+    if (this.sentCatId==0)
+      this.prdListOfCat=this.prdList;
+    else
+      this.prdListOfCat=this.prdList.filter(prd=>prd.categoryId==this.sentCatId);
   }
 
 }
