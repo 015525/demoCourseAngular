@@ -1,4 +1,5 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { ThisReceiver } from '@angular/compiler';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { ICategory } from 'src/app/Models/icategory';
 import { Iproduct } from 'src/app/Models/iproduct';
 
@@ -14,12 +15,13 @@ export class ProductListComponent implements OnChanges {
   prdList:Iproduct[];
   prdListOfCat:Iproduct[] = [];
   orderDate:Date;
-
+  @Output() totalPriceChanged: EventEmitter<number>;
   // use constructor for variable initailization and dependency injection
   // any thing else we need to be done when component is initailized 
   // prefered to be in the ngOnInit
 
   constructor() { 
+    this.totalPriceChanged = new EventEmitter<number>();
     this.prdList=[
       {id:100, name:"lenove thinkpad laptop", price:1000000, quantity:1, imgUrl:"https://fakeimg.pl/200x100/", categoryId:1},
       {id:200, name:"apple macbook laptop", price:2078940, quantity:0, imgUrl:"https://fakeimg.pl/200x100/", categoryId:1},
@@ -57,7 +59,7 @@ export class ProductListComponent implements OnChanges {
     //this.orderTotalPrice+=Number(Count)*price;
     //this.orderTotalPrice= (Count as number) *price
     //this.orderTotalPrice+=+Count*price;
-
+    this.totalPriceChanged.emit(this.orderTotalPrice);
 
 
     /*

@@ -10,7 +10,12 @@
 </div>
 <hr>
 <div class="bg-warning">
-    <app-product-list [sentCatId]="selectedCatId"></app-product-list>
+    <app-product-list [sentCatId]="selectedCatId" (totalPriceChanged)="onTotalPriceChanged($event)"></app-product-list>
 </div>
 <hr>
-<h3>Total Price is : {{orderTotalPrice}}</h3>
+<div>
+    <h3>Enter Your Name : </h3>
+    <input #clientNameInp type="text" class="form-control">
+</div>
+<h3>Total Price is : {{receivedOrderTotalPrice}}</h3>
+<button class="btn btn-success" (click)="completeOrder()">Place Order</button>
