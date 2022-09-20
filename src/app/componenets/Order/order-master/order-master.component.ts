@@ -36,7 +36,7 @@ export class OrderMasterComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.clientNameInpElement.nativeElement.value="Your name here";
     this.clientNameInpElement.nativeElement.style.border="2px solid red";
-    console.log(this.prdListComObj.prdList);
+    //console.log(this.prdListComObj.prdList);
   }
 
   onTotalPriceChanged(totalPrice:number){
@@ -44,7 +44,7 @@ export class OrderMasterComponent implements OnInit, AfterViewInit {
   }
 
   completeOrder(){
-    this.prdListComObj.prdList[0].quantity-=1;
+    //this.prdListComObj.prdList[0].quantity-=1;
   }
 
 }

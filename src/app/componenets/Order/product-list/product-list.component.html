@@ -25,6 +25,7 @@
             <th scope="col">Price in USD</th>
             <th scope="col">Price in EGP</th>
             <th scope="col">Needed</th>
+            <th scope="col">Details</th>
             <th scope="col">Buy</th>
         </tr>
     </thead>
@@ -83,7 +84,9 @@
             <td>{{item.price | USDtoEGP: 10 | currency : 'EGP' : 'code'}}</td>
             <!--template variable-->
             <td><input #itemsCount type="number" class="form-control"></td>
-            <td><button class="btn btn-secondary" (click)="buy(item.price,itemsCount.value)">Buy</button></td>
+            <!--<td><button class="btn btn-secondary" (click)="openPrdDetails(item.id)">Deatails</button></td>-->
+            <td><a name="" id="" class="btn btn-primary" [routerLink]="['/Products', item.id]" role="button">Details</a></td>
+            <td><button class="btn btn-secondary" (click)="buy(item.price,itemsCount.value)">Add to Cart</button></td>
         </tr>
         <!--</ng-container>   -->
     </tbody>
