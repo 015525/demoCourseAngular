@@ -45,4 +45,9 @@ export class StaticProductsService {
   {
     this.prdList.push(prd);
   }
+
+  getPrdIds() :number[]
+  {
+    return this.prdList.map(prd=>prd.id);
+  }
 }

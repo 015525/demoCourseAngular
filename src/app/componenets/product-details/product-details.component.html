@@ -1,1 +1,19 @@
-<p>product-details works!</p>
+<!--{{prd | json}}-->
+
+<div class="card m-2" style="width: 30%">
+    <img class="card-img-top" [src]="prd?.imgUrl" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">{{prd?.name}}</h5>
+      <div class="card-text">
+        <div>Price : {{prd?.price}}</div>
+        <div>Quantity : {{prd?.quantity}}</div>
+      </div>
+      <div class="btn-group" role="group" aria-label="Basic example">
+        <button [disabled]="currPrdId==prdIdsList[0]" type="button" class="btn btn-success" (click) = "getPrev()">Previous</button>
+        <button type="button" class="btn btn-warning" (click) = "goBack()">Back</button>
+        <button [disabled]="currPrdId==prdIdsList[prdIdsList.length-1]" type="button" class="btn btn-success" (click) = "getNext()">Next</button>
+      </div>
+      <!--<button type="button" class="btn btn-primary" (click) = "goBack()">Back to Products</button>-->
+      <!--<a href="#" class="btn btn-primary">Go somewhere</a>-->
+    </div>
+  </div>
