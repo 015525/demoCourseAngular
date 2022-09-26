@@ -7,6 +7,7 @@ import { OrderMasterComponent } from './componenets/Order/order-master/order-mas
 import { ProductListComponent } from './componenets/Order/product-list/product-list.component';
 import { ProductDetailsComponent } from './componenets/product-details/product-details.component';
 import { UserLoginComponent } from './componenets/UserLogin/UserLogin.component';
+import { AuthGuard } from './Guards/auth.guard';
 
 const routes: Routes = [ // works with first match wins
   {path:'', component:MainLayoutComponent, children:[
@@ -14,9 +15,10 @@ const routes: Routes = [ // works with first match wins
     {path:'Home', component:HomeComponent},
     {path:'Products', component:ProductListComponent},
     {path:'Products/:pid', component:ProductDetailsComponent},
-    {path:'Order', component:OrderMasterComponent},
+    {path:'Order', component:OrderMasterComponent, canActivate:[AuthGuard]},
   ]},
   {path:'Login', component:UserLoginComponent},
+  {path:'Logout', component:UserLoginComponent},
   {path:'**', component:NotFoundComponent} //wild card path (must be at the end)
 
 ];
