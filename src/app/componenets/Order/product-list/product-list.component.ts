@@ -1,8 +1,10 @@
 import { ThisReceiver } from '@angular/compiler';
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
+import { observable, Observable, Subscription } from 'rxjs';
 import { ICategory } from 'src/app/Models/icategory';
 import { Iproduct } from 'src/app/Models/iproduct';
+import { ProductsService } from 'src/app/services/products.service';
 import { StaticProductsService } from 'src/app/services/static-products.service';
 
 @Component({
@@ -10,8 +12,11 @@ import { StaticProductsService } from 'src/app/services/static-products.service'
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.scss']
 })
-export class ProductListComponent implements OnChanges {
+export class ProductListComponent implements OnChanges, OnDestroy {
 
+  subscriptions : Subscription[];
+  //productsByCatSub : Subscription;
+  //productsSub : Subscription;
   @Input() sentCatId:number=0;
   orderTotalPrice:number=0;
   // prdList:Iproduct[];
@@ -22,10 +27,14 @@ export class ProductListComponent implements OnChanges {
   // any thing else we need to be done when component is initailized 
   // prefered to be in the ngOnInit
 
-  constructor(private staticPrdServ : StaticProductsService,
+  constructor(//private staticPrdServ : StaticProductsService,
+              private prdServ:ProductsService,
               private router:Router) 
     { 
     this.totalPriceChanged = new EventEmitter<number>();
+    this.subscriptions = [];
+    //this.productsByCatSub = new Subscription();
+    //this.productsSub = new Subscription();
     // this.prdList=[
     //   {id:100, name:"lenove thinkpad laptop", price:1000000, quantity:1, imgUrl:"https://fakeimg.pl/200x100/", categoryId:1},
     //   {id:200, name:"apple macbook laptop", price:2078940, quantity:0, imgUrl:"https://fakeimg.pl/200x100/", categoryId:1},
@@ -41,13 +50,21 @@ export class ProductListComponent implements OnChanges {
 
     this.orderDate=new Date();
    }
+  
   ngOnChanges(): void {
    // this.filterPrdList()
-   this.prdListOfCat = this.staticPrdServ.getPrdbByCatId(this.sentCatId);
+   // this.prdListOfCat = this.staticPrdServ.getPrdbByCatId(this.sentCatId);
+   this.subscriptions.push(this.prdServ.getProductsByCatId(this.sentCatId).subscribe(products=>{
+    this.prdListOfCat=products
+   }))
   }
 
   ngOnInit(): void {
-    this.prdListOfCat = this.staticPrdServ.getAllProducts();
+    //this.prdListOfCat = this.staticPrdServ.getAllProducts();
+    this.subscriptions.push(this.prdServ.getAllProducts().subscribe(products=>{
+      console.log("in product list ");
+      this.prdListOfCat=products
+     }))
   }
 
   prdTrackByFn(index:number, item:Iproduct): number
@@ -90,4 +107,11 @@ export class ProductListComponent implements OnChanges {
   //     this.prdListOfCat=this.prdList.filter(prd=>prd.categoryId==this.sentCatId);
   // }
 
+  ngOnDestroy(): void {
+    for (let sub of this.subscriptions){
+      sub.unsubscribe();
+    }
+    //this.productsByCatSub.unsubscribe();
+    //this.productsSub.unsubscribe();
+  }
 }
