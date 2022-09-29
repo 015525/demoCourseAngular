@@ -77,6 +77,14 @@
       "quantity": 10,
       "imgUrl": "https://fakeimg.pl/200x100/",
       "categoryId": 2
+    },
+    {
+      "name": "laptop lenovo ideapad ",
+      "price": 3000,
+      "quantity": 3,
+      "categoryId": "1",
+      "imgUrl": "C:\\fakepath\\WhatsApp Image 2022-09-24 at 20.39.30.jpeg",
+      "id": 901
     }
   ]
 }

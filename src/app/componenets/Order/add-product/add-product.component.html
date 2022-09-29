@@ -1,1 +1,47 @@
-<button type="button" class="btn btn-primary m-4" (click)="AddProduct()">Add New Product</button>
+<!--<button type="button" class="btn btn-primary m-4" (click)="AddProduct()">Add New Product</button>-->
+<div class="text-danger">
+    <h3>To Be Removed [For TEST]</h3>
+    <div>
+        {{newPrd | json}}
+    </div>
+    <div>
+        <!--{{nameInp.className| json}}-->
+        {{nameInp.errors | json}}
+    </div>
+</div>
+
+<hr>
+<form #prdFrm="ngForm" (ngSubmit)="AddProduct()">
+    <div class="form-group m-3">
+        <label for="pName" class="form-label">Product Name</label>
+        <input #nameInp = "ngModel" type="text" class="form-control" id="pName" placeholder="Enter Product Name" name="pName" [(ngModel)] = "newPrd.name" required pattern="[A-Za-z]{3,}">
+        <div class="alert alert-warning" [hidden]="nameInp.valid || nameInp.untouched">
+            <small *ngIf="nameInp.errors?.['required']">Name is required</small>
+            <small *ngIf="nameInp.errors?.['pattern']">Name must be at least 3 letters</small>
+        </div>
+    </div>
+
+    <div class="form-group m-3">
+        <label for="pPrice" class="form-label">Product Price</label>
+        <input type="number" class="form-control" id="pPrice" placeholder="Enter Product Price" name="pPrice" [(ngModel)] = "newPrd.price">
+    </div>
+
+    <div class="form-group m-3">
+        <label for="pQuan" class="form-label">Product Quantity</label>
+        <input type="number" class="form-control" id="pQuan" placeholder="Enter Product Quantity" name="pQuan" [(ngModel)] = "newPrd.quantity">
+    </div>
+
+    <div class="form-group m-3">
+        <label for="pCat" class="form-label">Product Category</label>
+        <select class="form-select" name="cat" id="pCat" name="pCat" [(ngModel)] = "newPrd.categoryId"><!--<[(ngModel)]="selectedCatId">-->
+            <option *ngFor="let item of catList" [value]="item.id">{{item.name}}</option>
+        </select>
+    </div>
+
+    <div class="form-group m-3">
+        <label for="pImg" class="form-label">Product Image</label>
+        <input type="file" class="form-control" id="pImg" placeholder="Enter Product Image" name="pImg" [(ngModel)] = "newPrd.imgUrl">
+    </div>
+
+    <button [disabled]="prdFrm.invalid" type="submit" class="btn btn-primary">Add Product</button>
+</form>

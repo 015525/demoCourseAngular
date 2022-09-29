@@ -22,6 +22,7 @@ export class ProductsService {
   }
 
   getAllProducts(): Observable<Iproduct[]> {
+    
     // Repository Design pattern
     // return this.GenericAPIHandler.getAll('/Products')
     // .pipe(

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ErrorObserver } from 'rxjs';
+import { ICategory } from 'src/app/Models/icategory';
 import { Iproduct } from 'src/app/Models/iproduct';
 import { ProductsService } from 'src/app/services/products.service';
 
@@ -12,8 +13,18 @@ import { ProductsService } from 'src/app/services/products.service';
 export class AddProductComponent implements OnInit {
 
   newId:number = 800;
+  catList: ICategory[];
+  //selectedCatId:number;
+  newPrd : Iproduct ={} as Iproduct;
   constructor(private prdServ:ProductsService
-            , private router: Router) { 
+            , private router: Router) 
+            { 
+              this.catList=[
+                {id:1, name:"Laptop"},
+                {id:2, name:"taplet"},
+                {id:3, name:"mobile"}
+              ];
+              //this.selectedCatId=0;
             }
 
   ngOnInit(): void {
@@ -22,17 +33,17 @@ export class AddProductComponent implements OnInit {
   AddProduct()
   {
 
-    this.newId=this.newId+100;
+    //this.newId=this.newId+100;
 
-    console.log(this.newId)
-    const prd:Iproduct = {
-      id:this.newId, 
-      name:"lenove tap2", 
-      price:1203.5, 
-      quantity:10, 
-      imgUrl:"https://fakeimg.pl/200x100/", 
-      categoryId:2
-    }
+    //console.log(this.newId)
+    // const prd:Iproduct = {
+    //   id:this.newId, 
+    //   name:"lenove tap2", 
+    //   price:1203.5, 
+    //   quantity:10, 
+    //   imgUrl:"https://fakeimg.pl/200x100/", 
+    //   categoryId:2
+    // }
 
     const observer  ={
       next: (prd:Iproduct) => {
@@ -45,7 +56,7 @@ export class AddProductComponent implements OnInit {
       
     }
 
-    this.prdServ.addProduct(prd).subscribe(observer)
+    this.prdServ.addProduct(this.newPrd).subscribe(observer)
 
     // this.prdServ.addProduct(prd).subscribe((prd) => {
     //   alert('Product Added succesfully') // NOT recommended
